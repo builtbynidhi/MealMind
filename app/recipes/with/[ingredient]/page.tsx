@@ -35,10 +35,10 @@ export async function generateMetadata({
 }
 
 async function getRecipesWithIngredient(ingredient: string): Promise<RecipeCardData[]> {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  );
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return [];
+  const supabase = createClient(url, key);
 
   // Step 1: Find ingredient IDs matching the name
   const { data: ingRows } = await supabase
