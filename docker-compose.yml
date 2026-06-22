@@ -1,0 +1,10 @@
+# Local/self-hosted run of the app container. Supabase + Gemini are cloud services,
+# so this just runs MealMind itself with your .env.local values.
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    restart: unless-stopped

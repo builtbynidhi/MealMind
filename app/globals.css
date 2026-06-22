@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+ body {
+ @apply bg-cream-50 text-ink-900 antialiased;
+ }
+ h1, h2, h3 {
+ @apply font-display tracking-tight;
+ }
+}
+
+@layer components {
+ .btn {
+ @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors duration-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+ }
+ .btn-sm {
+ @apply btn px-3 py-1.5 text-xs;
+ }
+ .btn-lg {
+ @apply btn px-6 py-3 text-base;
+ }
+ .btn-primary {
+ @apply btn bg-brand-600 text-white shadow-sm hover:bg-brand-700;
+ }
+ .btn-accent {
+ @apply btn bg-accent-600 text-white shadow-sm hover:bg-accent-700;
+ }
+ .btn-ghost {
+ @apply btn border border-ink-900/15 bg-white text-ink-800 hover:bg-cream-100 
+ }
+ .input {
+ @apply w-full rounded-lg border border-ink-900/15 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 
+ }
+ .card {
+ @apply rounded-xl border border-ink-900/[0.08] bg-white p-5 shadow-sm 
+ }
+ .glass {
+ @apply border border-white/50 bg-white/70 backdrop-blur-md 
+ }
+ .chip {
+ @apply inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-sm font-medium text-brand-700 ring-1 ring-inset ring-brand-600/20 
+ }
+ /* Unified badge system */
+ .badge-brand {
+ @apply inline-flex items-center rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-semibold text-brand-700 ring-1 ring-inset ring-brand-600/20 
+ }
+ .badge-accent {
+ @apply inline-flex items-center rounded-full bg-accent-50 px-2.5 py-0.5 text-xs font-semibold text-accent-700 ring-1 ring-inset ring-accent-600/20 
+ }
+ .badge-neutral {
+ @apply inline-flex items-center rounded-full bg-cream-100 px-2.5 py-0.5 text-xs font-medium text-ink-700 ring-1 ring-inset ring-ink-900/10 
+ }
+ .badge-gold {
+ @apply inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700 ring-1 ring-inset ring-amber-600/20;
+ }
+ /* .tag is an alias for .badge-neutral */
+ .tag {
+ @apply badge-neutral;
+ }
+ .section {
+ @apply mx-auto w-full max-w-6xl px-5;
+ }
+}
+
+/* Thin custom scrollbar for product preview */
+.scrollbar-thin::-webkit-scrollbar { width: 4px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(22,163,74,0.25); border-radius: 9999px; }
+.scrollbar-thin::-webkit-scrollbar-thumb:hover { background: rgba(22,163,74,0.45); }
+
+/* Skeleton shimmer */
+.skeleton {
+ @apply relative overflow-hidden rounded-xl bg-cream-200;
+}
+.skeleton::after {
+ @apply absolute inset-0 -translate-x-full animate-shimmer;
+ content:"";
+ background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+}
+
+/* Print: show only the recipe content, drop chrome. */
+@media print {
+ header, nav, footer, .no-print {
+ display: none !important;
+ }
+ body {
+ background: #fff !important;
+ color: #000 !important;
+ }
+ .print-block {
+ box-shadow: none !important;
+ border: none !important;
+ }
+}
+
+@media (prefers-reduced-motion: reduce) {
+ *,
+ *::before,
+ *::after {
+ animation-duration: 0.001ms !important;
+ animation-iteration-count: 1 !important;
+ transition-duration: 0.001ms !important;
+ scroll-behavior: auto !important;
+ }
+}
