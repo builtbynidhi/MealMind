@@ -14,10 +14,10 @@ export const dynamicParams = true;
 
 // Pre-render all 394 recipes at build time using the public anon key
 export async function generateStaticParams() {
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  );
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return [];
+  const supabase = createBrowserClient(url, key);
   const { data } = await supabase.from("recipes").select("id");
   return (data ?? []).map((r: { id: string }) => ({ id: r.id }));
 }
@@ -28,10 +28,10 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  );
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return { title: "Recipe | MealMind" };
+  const supabase = createBrowserClient(url, key);
   const { data } = await supabase
     .from("recipes")
     .select("title, summary, cuisine")
